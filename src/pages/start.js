@@ -13,7 +13,7 @@ const AppStart = () => {
     const [data, setData] = useState(null);
 
     useEffect(() => {
-        axios.get('http://www.neowsapp.com/rest/v1/feed/today')
+        axios.get('https://www.neowsapp.com/rest/v1/feed/today')
             .then(response => {
                 setData(response.data);
             })
