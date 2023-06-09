@@ -1,21 +1,19 @@
-import { useThree, useFrame } from "@react-three/fiber";
-import { Sphere } from "@react-three/drei"; // Sphere component is part of drei package
 import React, { useRef } from 'react';
+import { useFrame } from '@react-three/fiber';
 
-const Asteroid = ({position, size, speed}) => {
-  // this reference will give us direct access to the mesh
-  const mesh = useRef();
-
-  // Rotate mesh every frame, this is outside of React without overhead
-  useFrame(() => (mesh.current.rotation.x = mesh.current.rotation.y += speed));
+const Asteroid = ({ position, size }) => {
+  const ref = useRef();
+  useFrame(({ clock }) => {
+    ref.current.rotation.x = clock.getElapsedTime();
+    ref.current.rotation.y = clock.getElapsedTime();
+  });
 
   return (
-    <mesh position={position} ref={mesh}>
-      <Sphere args={[size, 32, 32]}>
-        <meshStandardMaterial attach="material" color="gray" />
-      </Sphere>
+    <mesh ref={ref} position={position} scale={[size * 1000, size * 1000, size * 1000]}> {/* Multiply size by 1000 */}
+      <boxBufferGeometry attach="geometry" />
+      <meshStandardMaterial attach="material" color="gray" />
     </mesh>
   );
-}
+};
 
 export default Asteroid;

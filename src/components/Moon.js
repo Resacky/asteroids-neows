@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import { useFrame } from "@react-three/fiber";
 import { Sphere } from "@react-three/drei";
 
-const Moon = () => {
+const Moon = ({position}) => {
     const moonRef = useRef();
     
     useFrame(({ clock }) => {
@@ -12,7 +12,7 @@ const Moon = () => {
     });
     
     return (
-        <mesh ref={moonRef} position={[0,0,0]}>
+        <mesh ref={moonRef} position={position}>
             <Sphere args={[1, 32, 32]}> {/* Moon radius is smaller */}
                 <meshStandardMaterial attach="material" color="gray" />
             </Sphere>
