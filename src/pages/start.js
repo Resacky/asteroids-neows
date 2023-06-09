@@ -1,47 +1,40 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React, { Suspense } from 'react';
+import { Canvas } from 'react-three-fiber';
+import { OrbitControls, Stars } from "@react-three/drei";
+import Earth from '../components/Earth';
+import Asteroid from '../components/Asteroid';
+import Sun from '../components/Sun';
+import Moon from '../components/Moon';
 
-import AsteroidField from '../components/AsteroidField';
-
-import '../styles/start.css'
+import '../styles/start.css';
 
 const AppStart = () => {
-    const [data, setData] = useState('');
-
-    // Get today's date
-    let today = new Date();
-    let dd = String(today.getDate()).padStart(2, '0');
-    let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-    let yyyy = today.getFullYear();
-
-    let todayFormatted = yyyy + '-' + mm + '-' + dd;
-    /* for debugging */
-    console.log("Today's date: " + todayFormatted);
-
-    // Get the date 7 days ago
-    let sevenDaysAgo = new Date();
-    sevenDaysAgo.setDate(today.getDate() - 7);
-    let ddSeven = String(sevenDaysAgo.getDate()).padStart(2, '0');
-    let mmSeven = String(sevenDaysAgo.getMonth() + 1).padStart(2, '0');
-    let yyyySeven = sevenDaysAgo.getFullYear();
-
-    let sevenDaysAgoFormatted = yyyySeven + '-' + mmSeven + '-' + ddSeven;
-    /* for debugging */
-    console.log("Seven days ago: " + sevenDaysAgoFormatted);
-
-    useEffect(() => {
-        axios.get(`https://api.nasa.gov/neo/rest/v1/feed?start_date=${sevenDaysAgoFormatted}&end_date=${todayFormatted}&api_key=hmW7KN79f5Rvj7qBTcGSy5a4XZ6sQBvEnpjdvxMP`)
-            .then(response => {
-                setData(response.data);
-            })
-            .catch(error => console.error(`Error: ${error}`));
-    }, []);
+    // An example list of asteroid positions
+    const asteroidPositions = [
+        [3, 0, 0],
+        [-3, 0, 0],
+        [0, 3, 0],
+        [0, -3, 0],
+        [0, 0, 3],
+        [0, 0, -3]
+    ];
 
     return (
         <div className="App">
-            <AsteroidField 
-                data={data}
-            />
+            <Canvas camera={{ position: [0, 0, 10], fov: 40 }}>
+                <ambientLight intensity={0.5} />
+                <pointLight position={[10, 10, 10]} />
+                <Stars radius={100} depth={50} count={5000} factor={4} saturation={0} fade />
+                <Suspense fallback={null}>
+                    <Earth />
+                    <Moon />
+                    {asteroidPositions.map((position, index) => (
+                        <Asteroid key={index} position={position} />
+                    ))}
+                </Suspense>
+                <Sun />
+                <OrbitControls />
+            </Canvas>
         </div>
     );
 };
