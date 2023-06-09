@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 
-import Start from '../src/pages/start.js'
+import AppStart from '../src/pages/start.js'
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <b>Hello World!</b>
-    <Start/>
+    <AppStart />
   </React.StrictMode>
 );
