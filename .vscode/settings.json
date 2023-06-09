@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/d62d47c8-1885-49c0-bd02-caf72a033954/resourceGroups/programmingdumpster/providers/Microsoft.Web/sites/asteroids-neows",
+    "appService.deploySubpath": "."
+}
