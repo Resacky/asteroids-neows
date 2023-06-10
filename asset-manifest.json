@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/asteroids-neows/static/css/main.78331dc7.css",
+    "main.js": "/asteroids-neows/static/js/main.1865420b.js",
+    "index.html": "/asteroids-neows/index.html",
+    "main.78331dc7.css.map": "/asteroids-neows/static/css/main.78331dc7.css.map",
+    "main.1865420b.js.map": "/asteroids-neows/static/js/main.1865420b.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.78331dc7.css",
+    "static/js/main.1865420b.js"
+  ]
+}
