@@ -20,6 +20,16 @@ const AppStart = () => {
             .catch(error => console.error(`Error: ${error}`));
     }, []);
 
+    // Get today's date
+    let today = new Date();
+    let dd = String(today.getDate()).padStart(2, '0');
+    let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    let yyyy = today.getFullYear();
+
+    let todayFormatted = yyyy + '-' + mm + '-' + dd;
+    /* for debugging */
+    //console.log("Today's date: " + todayFormatted);     
+
     return (
         <div className="App">
             <Canvas camera={{ position: [0, 0, 200], fov: 40 }}>
@@ -30,7 +40,7 @@ const AppStart = () => {
                     <Earth />
                     <Sun position={[-150, 0, 0]} />
                     <Moon position={[2.5, 0, 0]} />
-                    {data && data.near_earth_objects['2023-06-09'].map((asteroid) => (
+                    {data && data.near_earth_objects[`${todayFormatted}`].map((asteroid) => (
                         <Asteroid 
                             key={asteroid.id} 
                             position={[
